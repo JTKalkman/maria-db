@@ -11,7 +11,7 @@ Local MariaDB instance for development. Runs as a Docker container with persiste
 
 ```bash
 cp .env.example .env
-# Adjust the password and/or the portnumber in the .env
+# Adjust the password and/or the port number in the .env
 ```
 
 ## Usage
@@ -38,13 +38,13 @@ docker compose down -v
 | Setting  | Value                        |
 |----------|------------------------------|
 | Host     | `127.0.0.1`                  |
-| Poort    | See `MARIADB_PORT` in `.env` |
+| Port     | See `MARIADB_PORT` in `.env` |
 | User     | `root`                       |
 | Password | See `.env`                   |
 
 ## Create a project specific database and user.
 
-Connect as root and perform the following query::
+Connect as root and perform the following query:
 
 ```sql
 CREATE DATABASE project_name CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
