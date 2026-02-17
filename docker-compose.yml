@@ -1,0 +1,15 @@
+services:
+  mariadb:
+    image: mariadb:lts
+    container_name: local-mariadb
+    restart: unless-stopped
+    ports:
+      - "${MARIADB_PORT:-3307}:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:
+    driver: local

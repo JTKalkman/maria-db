@@ -1,0 +1,60 @@
+# local-mariadb
+
+Local MariaDB instance for development. Runs as a Docker container with persistent volume to keep the databases.
+
+## Requirements
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+## Installation
+
+```bash
+cp .env.example .env
+# Adjust the password and/or the portnumber in the .env
+```
+
+## Usage
+
+```bash
+# Start up.
+docker compose up -d
+
+# Stopping (databases are persistent)
+docker compose stop
+
+# Stopping and container removal (data persistent in the volume)
+docker compose down
+
+# Checking logs
+docker compose logs -f
+
+# Full container removal including data
+docker compose down -v
+```
+
+## Connecting
+
+| Setting  | Value                        |
+|----------|------------------------------|
+| Host     | `127.0.0.1`                  |
+| Poort    | See `MARIADB_PORT` in `.env` |
+| User     | `root`                       |
+| Password | See `.env`                   |
+
+## Create a project specific database and user.
+
+Connect as root and perform the following query::
+
+```sql
+CREATE DATABASE project_name CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'project_user'@'%' IDENTIFIED BY 'project_user_password';
+GRANT ALL PRIVILEGES ON project_name.* TO 'project_user'@'%';
+FLUSH PRIVILEGES;
+```
+
+Through the CLI from the container:
+
+```bash
+docker exec -it local-mariadb mariadb -u root -p
+```
